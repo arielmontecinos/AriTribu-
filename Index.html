@@ -5,326 +5,169 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Burbujas Interactivas</title>
   <style>
-    #start-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        #start-button:hover {
-            background-color: #0056b3;
-        }
-
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #ffffff;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #ffffff;
+        overflow: hidden;
+    }
+
+    #start-button {
+        position: absolute;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 10;
+    }
+    
+    #start-button:hover {
+        background-color: #0056b3;
     }
 
     #main-content {
-      display: none; /* Ocultar inicialmente */
-    }
-
-    #start-button {
-      position: absolute;
-      font-size: 1.5rem;
-      padding: 10px 20px;
-      cursor: pointer;
+        display: none; /* Se oculta inicialmente hasta que el usuario haga clic en el botón */
     }
 
     #bubble-container {
-      width: 700px;
-      height: 600px;
-      position: relative;
-      background: #f0f0f0;
-      border: 1px solid #ccc;
-      overflow: hidden;
+        width: 600px;
+        height: 750px;
+        position: relative;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        border-radius: 10px;
     }
 
     .bubble {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .bubble img {
-      width: 80%;
-      height: auto;
-      border-radius: 50%;
+        width: 80%;
+        height: auto;
+        border-radius: 50%;
     }
 
-    .bubble.red {
-      background: rgba(255, 99, 71, 0.8);
-    }
+    .bubble.red { background: rgba(255, 99, 71, 0.8); }
+    .bubble.blue { background: rgba(70, 130, 180, 0.8); }
+    .bubble.green { background: rgba(34, 139, 34, 0.8); }
+    
+    @media screen and (max-width: 390px) {
+        body {
+            background-color: #f8f8f8;
+        }
 
-    .bubble.blue {
-      background: rgba(70, 130, 180, 0.8);
-    }
+        #bubble-container {
+            width: 90vw;
+            height: 80vh;
+            max-width: 370px;
+            max-height: 650px;
+            background: #d27f7f;
+            border: 1px solid #c66363;
+            border-radius: 15px;
+        }
 
-    .bubble.green {
-      background: rgba(34, 139, 34, 0.8);
-    }
-
-    .page-content {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-      background: #fff;
-    }
-
-    .page-content.active {
-      display: flex;
-    }
-
-    .clock {
-      position: absolute;
-      font-family:Arial, Helvetica, sans-serif;
-      font-size: 4rem;
-      font-weight: bold;
-      border-radius: 20px;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-      padding: 1rem 1rem;
-      color: #f0ad4e;
-      animation: pulseColorAndSize 6s infinite;
-    }
-
-    @keyframes pulseColorAndSize {
-      0% { font-size: 4rem; color: #000000; }
-      25% { font-size: 5rem; color: #8B0000; box-shadow: 0 4px 15px rgba(51, 255, 87, 0.5); }
-      50% { font-size: 6rem; color: #000080; box-shadow: 0 4px 15px rgba(51, 87, 255, 0.5); }
-      75% { font-size: 7rem; color: #006400; background-color: #FDFDFD; box-shadow: 0 4px 15px rgba(255, 51, 161, 0.5); }
-      100% { font-size: 4rem; color: #4B0082; }
+        .bubble {
+            width: 200px;
+            height: 200px;
+        }
     }
   </style>
 </head>
 <body>
-
-  <div> 
-    <div class="PaginaPrincipal">
-        <button id="start-button">Reproducir Música</button>
-    </div>
-    <audio id="audio" src="audio/Counting Stars - OneRepublic (violin_cello_bass cover) Simply Three _ Shaorin Music(MP3_320K).mp3" autoplay loop></audio>
+  
+  <div>
+    <button id="start-button">Reproducir Música</button>
   </div>
+  
+  <audio id="audio" src="audio/Counting Stars - OneRepublic (violin_cello_bass cover) Simply Three _ Shaorin Music(MP3_320K).mp3" loop></audio>
 
   <div id="main-content">
-    <audio src="https://docs.google.com/uc?export=download&id=19Mz_HR9t0rk4YIWIglW-HUkUNl9Ii04d" autoplay loop></audio>
-
-    <div class="clock">
-      <span id="hours">00</span>:
-      <span id="minutes">00</span>:
-      <span id="seconds">00</span>
-    </div>
-
     <div id="bubble-container">
-      <div class="bubble red" data-page="page1">
-        <img src="Imagenes/Ariel.jpg" alt="Imagen 1">
-      </div>
-      <div class="bubble blue" data-page="page2">
-        <img src="Imagenes/Micaela.jpg" alt="Imagen 2">
-      </div>
-      <div class="bubble green" data-page="page3">
-        <img src="Imagenes/Jennifer.jpg" alt="Imagen 3">
-      </div>
-    </div>
-
-    <div id="page1" class="page-content">
-      <h1>Página 1</h1>
-      <button>Reproducir Ariel</button>
-      <button onclick="showMain()">Volver</button>
-    </div>
-
-    <div id="page2" class="page-content">
-      <h1>Página 2</h1>
-      <button onclick="showMain()">Volver</button>
-    </div>
-
-    <div id="page3" class="page-content">
-      <h1>Página 3</h1>
-      <button onclick="showMain()">Volver</button>
+        <div class="bubble red" data-page="page1">
+            <img src="Imagenes/Ariel.jpg" alt="Imagen 1">
+        </div>
+        <div class="bubble blue" data-page="page2">
+            <img src="Imagenes/Micaela.jpg" alt="Imagen 2">
+        </div>
+        <div class="bubble green" data-page="page3">
+            <img src="Imagenes/Jennifer.jpg" alt="Imagen 3">
+        </div>
     </div>
   </div>
 
-  <script>
-    //AUDIO 
-    const audio = document.getElementById("audio");
-    const playBtn = document.getElementById("start-button");
-          
-    playBtn.addEventListener("click", () => {
-        audio.play();
+<script>
+// Referencias a los elementos del DOM
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("start-button");
+const mainContent = document.getElementById("main-content");
+const bubbleContainer = document.getElementById("bubble-container");
+const bubbles = document.querySelectorAll(".bubble");
+
+// Evento de clic en el botón de inicio
+playBtn.addEventListener("click", () => {
+    audio.play(); // Inicia la reproducción de la música
+    playBtn.style.display = "none"; // Oculta el botón de inicio
+    mainContent.style.display = "block"; // Muestra el contenido principal
+    iniciarBurbujas(); // Llama a la función que inicia el movimiento de burbujas
+});
+
+/**
+ * Función que hace que las burbujas se muevan dentro del contenedor
+ */
+function iniciarBurbujas() {
+    let containerWidth = bubbleContainer.clientWidth;
+    let containerHeight = bubbleContainer.clientHeight;
+
+    bubbles.forEach((bubble) => {
+        let vx = (Math.random() * 2 - 1) * 2; // Velocidad en X
+        let vy = (Math.random() * 2 - 1) * 2; // Velocidad en Y
+        let size = bubble.clientWidth;
+        let x = Math.random() * (containerWidth - size); // Posición inicial X
+        let y = Math.random() * (containerHeight - size); // Posición inicial Y
+
+        /**
+         * Función recursiva que mueve la burbuja en cada fotograma
+         */
+        function moverBurbuja() {
+            x += vx;
+            y += vy;
+
+            // Rebotar en los bordes del contenedor
+            if (x <= 0 || x >= containerWidth - size) vx *= -1;
+            if (y <= 0 || y >= containerHeight - size) vy *= -1;
+
+            // Aplicar la nueva posición a la burbuja
+            bubble.style.transform = `translate(${x}px, ${y}px)`;
+
+            requestAnimationFrame(moverBurbuja); // Continuar la animación
+        }
+
+        moverBurbuja(); // Iniciar el movimiento de la burbuja
     });
-    //Final audio de todo. 
-  
-    const startButton = document.getElementById('start-button');
-    const mainContent = document.getElementById('main-content');
-    
-    // Variables para el reloj
-    const hoursElement = document.getElementById("hours");
-    const minutesElement = document.getElementById("minutes");
-    const secondsElement = document.getElementById("seconds");
-    
-    // Variable para rastrear cuál burbuja está al frente
-    let currentTopBubbleIndex = 0;
-    
-    // Evento de clic para mostrar el contenido principal
-    startButton.addEventListener('click', () => {
-      startButton.style.display = 'none'; // Ocultar el botón
-      mainContent.style.display = 'block'; // Mostrar el contenido
-    
-      // Una vez que se muestra el contenido, inicializar el reloj y las burbujas
-      iniciarReloj();
-      iniciarBurbujas();
-      iniciarSuperposiciónBurbujas();
+
+    // Ajustar el tamaño del contenedor si la ventana cambia de tamaño
+    window.addEventListener("resize", () => {
+        containerWidth = bubbleContainer.clientWidth;
+        containerHeight = bubbleContainer.clientHeight;
     });
-    
-    // Función para actualizar el reloj
-    function iniciarReloj() {
-      function actualizarReloj() {
-        const ahora = new Date();
-        let horas = ahora.getHours();
-        let minutos = ahora.getMinutes();
-        let segundos = ahora.getSeconds();
-    
-        horas = horas < 10 ? "0" + horas : horas;
-        minutos = minutos < 10 ? "0" + minutos : minutos;
-        segundos = segundos < 10 ? "0" + segundos : segundos;
-    
-        hoursElement.textContent = horas;
-        minutesElement.textContent = minutos;
-        secondsElement.textContent = segundos;
-      }
-    
-      // Actualizar reloj cada segundo
-      actualizarReloj();
-      setInterval(actualizarReloj, 1000);
-    }
-    
-    // Función para inicializar las burbujas
-    function iniciarBurbujas() {
-      const container = document.getElementById('bubble-container');
-      const containerWidth = container.offsetWidth;
-      const containerHeight = container.offsetHeight;
-      const bubbleSize = 300;
-    
-      // Calcular las coordenadas iniciales (el centro del contenedor)
-      const centerX = (containerWidth - bubbleSize) / 2;
-      const centerY = (containerHeight - bubbleSize) / 2;
-    
-      // Configuración inicial de las burbujas
-      const bubbles = [
-        { el: document.querySelector('.bubble.red'), x: centerX, y: centerY, vx: 0.5, vy: 0.75 },
-        { el: document.querySelector('.bubble.blue'), x: centerX, y: centerY, vx: -0.8, vy: 0.6 },
-        { el: document.querySelector('.bubble.green'), x: centerX, y: centerY, vx: 0.7, vy: -0.6 }
-      ];
-    
-      // Función para actualizar posiciones de las burbujas
-      function updatePositions() {
-        bubbles.forEach(bubble => {
-          bubble.x += bubble.vx;
-          bubble.y += bubble.vy;
-    
-          if (bubble.x <= 0 || bubble.x >= containerWidth - bubbleSize) bubble.vx *= -1;
-          if (bubble.y <= 0 || bubble.y >= containerHeight - bubbleSize) bubble.vy *= -1;
-    
-          bubble.el.style.transform = `translate(${bubble.x}px, ${bubble.y}px)`;
-        });
-        requestAnimationFrame(updatePositions);
-      }
-    
-      updatePositions();
-    
-      // Agregar clic a cada burbuja para mostrar su página asociada
-      bubbles.forEach((bubble, index) => {
-        bubble.el.addEventListener('click', () => {
-          mostrarPagina(`page${index + 1}`);
-        });
-      });
-    }
-    
-    // Función para gestionar la superposición de burbujas
-    function iniciarSuperposiciónBurbujas() {
-      const bubbles = document.querySelectorAll('.bubble');
-      
-      // Cambiar la burbuja superior periódicamente
-      setInterval(() => {
-        bubbles.forEach((bubble, index) => {
-          bubble.style.zIndex = (index === currentTopBubbleIndex) ? '10' : '1';
-        });
-    
-        // Pasar a la siguiente burbuja, y si llegamos al final, volver al inicio
-        currentTopBubbleIndex = (currentTopBubbleIndex + 1) % bubbles.length;
-      }, 3000);
-    }
-    
-    // Función para mostrar una página específica
-    function mostrarPagina(paginaId) {
-      const paginas = document.querySelectorAll('.page-content');
-      const bubbleContainer = document.getElementById('bubble-container');
-    
-      // Pausar el audio
-      audio.pause();
-      audio.currentTime = 0;
-    
-      // Ocultar las burbujas
-      bubbleContainer.style.display = 'none';
-    
-      // Mostrar la página seleccionada
-      paginas.forEach(pagina => {
-        pagina.classList.remove('active');
-      });
-    
-      document.getElementById(paginaId).classList.add('active');
-    }
-    
-    // Función para volver al contenido principal
-    function showMain() {
-      const paginas = document.querySelectorAll('.page-content');
-      const bubbleContainer = document.getElementById('bubble-container');
-      const playBtn = document.getElementById('start-button'); // El botón que reproduce la música
-
-      // Pausar el audio actual
-      audio.pause();
-      audio.currentTime = 0;
-
-      // Mostrar las burbujas nuevamente
-      bubbleContainer.style.display = 'block';
-
-      // Ocultar todas las páginas
-      paginas.forEach(pagina => {
-          pagina.classList.remove('active');
-      });
-
-      // Mostrar el contenido principal
-      mainContent.style.display = 'block';
-
-      // “Simular” que se hace clic en el botón de Reproducir Música
-      playBtn.click();
-    }
-
-  </script>
-  
-  
+}
+</script>
 </body>
 </html>
