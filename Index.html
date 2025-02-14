@@ -33,7 +33,7 @@
     }
 
     #main-content {
-        display: none; /* Se oculta inicialmente hasta que el usuario haga clic en el botón */
+        display: none;
     }
 
     #bubble-container {
@@ -59,9 +59,9 @@
     }
 
     .bubble img {
-        width: 80%;
+        width: 85%;
         height: auto;
-        border-radius: 50%;
+        border-radius: 100%;
     }
 
     .bubble.red { background: rgba(255, 99, 71, 0.8); }
@@ -84,8 +84,8 @@
         }
 
         .bubble {
-            width: 200px;
-            height: 200px;
+            width: 230px;
+            height: 230px;
         }
     }
   </style>
@@ -101,73 +101,73 @@
   <div id="main-content">
     <div id="bubble-container">
         <div class="bubble red" data-page="page1">
-            <img src="Imagenes/Ariel.jpg" alt="Imagen 1">
+            <img src="Imagenes/ariel3.png" alt="Imagen 1">
         </div>
         <div class="bubble blue" data-page="page2">
-            <img src="Imagenes/Micaela.jpg" alt="Imagen 2">
+            <img src="Imagenes/Micaela5.jpg" alt="Imagen 2">
         </div>
         <div class="bubble green" data-page="page3">
-            <img src="Imagenes/Jennifer.jpg" alt="Imagen 3">
+            <img src="Imagenes/Jennifer2.jpg" alt="Imagen 3">
         </div>
     </div>
   </div>
 
 <script>
-// Referencias a los elementos del DOM
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("start-button");
-const mainContent = document.getElementById("main-content");
-const bubbleContainer = document.getElementById("bubble-container");
-const bubbles = document.querySelectorAll(".bubble");
+  const audio = document.getElementById("audio");
+  const playBtn = document.getElementById("start-button");
+  const mainContent = document.getElementById("main-content");
+  const bubbleContainer = document.getElementById("bubble-container");
+  const bubbles = document.querySelectorAll(".bubble");
+  let currentTopBubbleIndex = 0;
 
-// Evento de clic en el botón de inicio
-playBtn.addEventListener("click", () => {
-    audio.play(); // Inicia la reproducción de la música
-    playBtn.style.display = "none"; // Oculta el botón de inicio
-    mainContent.style.display = "block"; // Muestra el contenido principal
-    iniciarBurbujas(); // Llama a la función que inicia el movimiento de burbujas
-});
+  playBtn.addEventListener("click", () => {
+      audio.play();
+      playBtn.style.display = "none";
+      mainContent.style.display = "block";
+      iniciarBurbujas();
+      iniciarSuperposiciónBurbujas();
+  });
 
-/**
- * Función que hace que las burbujas se muevan dentro del contenedor
- */
-function iniciarBurbujas() {
-    let containerWidth = bubbleContainer.clientWidth;
-    let containerHeight = bubbleContainer.clientHeight;
+  function iniciarBurbujas() {
+      let containerWidth = bubbleContainer.clientWidth;
+      let containerHeight = bubbleContainer.clientHeight;
 
-    bubbles.forEach((bubble) => {
-        let vx = (Math.random() * 2 - 1) * 2; // Velocidad en X
-        let vy = (Math.random() * 2 - 1) * 2; // Velocidad en Y
-        let size = bubble.clientWidth;
-        let x = Math.random() * (containerWidth - size); // Posición inicial X
-        let y = Math.random() * (containerHeight - size); // Posición inicial Y
+      bubbles.forEach((bubble) => {
+          let vx = (Math.random() * 2 - 1) * 2;
+          let vy = (Math.random() * 2 - 1) * 2;
+          let size = bubble.clientWidth;
+          let x = Math.random() * (containerWidth - size);
+          let y = Math.random() * (containerHeight - size);
 
-        /**
-         * Función recursiva que mueve la burbuja en cada fotograma
-         */
-        function moverBurbuja() {
-            x += vx;
-            y += vy;
+          function moverBurbuja() {
+              x += vx;
+              y += vy;
 
-            // Rebotar en los bordes del contenedor
-            if (x <= 0 || x >= containerWidth - size) vx *= -1;
-            if (y <= 0 || y >= containerHeight - size) vy *= -1;
+              if (x <= 0 || x >= containerWidth - size) vx *= -1;
+              if (y <= 0 || y >= containerHeight - size) vy *= -1;
 
-            // Aplicar la nueva posición a la burbuja
-            bubble.style.transform = `translate(${x}px, ${y}px)`;
+              bubble.style.transform = `translate(${x}px, ${y}px)`;
 
-            requestAnimationFrame(moverBurbuja); // Continuar la animación
-        }
+              requestAnimationFrame(moverBurbuja);
+          }
 
-        moverBurbuja(); // Iniciar el movimiento de la burbuja
-    });
+          moverBurbuja();
+      });
 
-    // Ajustar el tamaño del contenedor si la ventana cambia de tamaño
-    window.addEventListener("resize", () => {
-        containerWidth = bubbleContainer.clientWidth;
-        containerHeight = bubbleContainer.clientHeight;
-    });
-}
+      window.addEventListener("resize", () => {
+          containerWidth = bubbleContainer.clientWidth;
+          containerHeight = bubbleContainer.clientHeight;
+      });
+  }
+
+  function iniciarSuperposiciónBurbujas() {
+      setInterval(() => {
+          bubbles.forEach((bubble, index) => {
+              bubble.style.zIndex = (index === currentTopBubbleIndex) ? '10' : '1';
+          });
+          currentTopBubbleIndex = (currentTopBubbleIndex + 1) % bubbles.length;
+      }, 1000);
+  }
 </script>
 </body>
 </html>
