@@ -5,33 +5,192 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Burbujas Interactivas</title>
   <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #ffffff;
-        overflow: hidden;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
-    #start-button {
-        position: absolute;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        border-radius: 5px;
-        z-index: 10;
-    }
+.clock {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #0ff;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px 40px;
+  border-radius: 12px;
+  display: inline-block;
+  text-align: center;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #00f;
+  border: 3px solid rgba(255, 255, 255, 0.8); /* Toque blanco en el borde */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
+  position: relative;
+}
+
+/* Efecto de reflejo en el borde */
+.clock::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 15px;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.6), rgba(0, 255, 255, 0.5));
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0.8;
+  animation: neonBorder 3s linear infinite alternate;
+}
+
+/* Animación del borde de neón */
+@keyframes neonBorder {
+  0% { filter: blur(8px) brightness(1); }
+  50% { filter: blur(12px) brightness(1); }
+  100% { filter: blur(8px) brightness(1); }
+}
+
+.clock span {
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+  color: #fff; /* Toque blanco en los números */
+  text-shadow: 0 0 8px #fff, 0 0 12px #0ff;
+}
+
+
     
-    #start-button:hover {
-        background-color: #0056b3;
-    }
+    /****************************/
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #232526, #414345);
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+h1{
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+p {
+  font-size: 1.2em;
+  font-style: italic;
+}
+#paginaPrincipal {
+ margin-top: 20px;
+}
 
+#start-button {
+  padding: 12px 24px;
+  font-size: 1.2em;
+  border: none;
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.7);
+}
+#start-button:hover {
+  background: #ff9900;
+  box-shadow: 0px 0px 20px rgba(255, 153, 0, 1);
+}
+/*Arreglando los botones de pagina1 y pagina2, pagina3*/
+@keyframes latido {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.botonVolver,.botonPrincipal{
+  padding: 12px 22px;
+  font-size: 1.1em;
+  border: none;
+  background: linear-gradient(45deg, #ffcc00, #ff9900);
+  color: black;
+  font-weight: bold;
+  border-radius: 23px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.7);
+  animation: latido 1.5s infinite ease-in-out;
+}
+button{
+  margin:10px;
+}
+/*Mejorando la interfas del texto. */
+@keyframes colorLatido {
+  0% { color: #eedfa4; }
+  50% { color: rgb(248, 245, 245); }
+  100% { color: rgb(55, 207, 230); }
+}
+
+.texto1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  animation: colorLatido 5s infinite ease-in-out;
+}
+@keyframes fuenteLatido {
+  0% { color: rgb(255, 255, 255); font-family: "Montserrat", sans-serif; }
+  50% { color: #b6ffe7; font-family: "Playfair Display", serif; }
+  75% { color: #edad93; font-family:Arial, Helvetica, sans-serif; }
+  100% { color: rgb(252, 205, 253); font-family: "Montserrat", sans-serif; }
+}
+
+.texto2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 50px;
+  animation: fuenteLatido 10s infinite ease-in-out;
+  
+}
+
+
+/* Globos animados */
+.balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 60px;
+            background: red;
+            border-radius: 50%;
+            animation: floatUp 5s linear infinite;
+        }
+        .balloon::before {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background: white;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-120vh); opacity: 0; }
+        }
+
+        /* Chispas */
+        .spark {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: gold;
+            box-shadow: 0 0 10px gold;
+            border-radius: 50%;
+            animation: flicker 1s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.5); }
+        }
+/**********************/
     #main-content {
         display: none;
     }
@@ -67,10 +226,36 @@
     .bubble.red { background: rgba(255, 99, 71, 0.8); }
     .bubble.blue { background: rgba(70, 130, 180, 0.8); }
     .bubble.green { background: rgba(34, 139, 34, 0.8); }
-    
+
+    .page-content {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        background: #183049;
+    }
+    /*para centrar las paginas. */
+    #imagenAriel,#imagenMicaela,#imagenJenifer {
+      width: 90%;
+      height: auto;
+      margin: 20px;
+    }
+    #page1 , #page2, #page3 {
+      display: flex;
+      flex-direction: column; /* Para alinear los elementos uno debajo del otro */
+      justify-content: center; /* Centrado vertical */
+      align-items: center; /* Centrado horizontal */
+      height: 100vh; /* La altura total de la ventana */
+      text-align: center; /* Opcional: centra el texto dentro del contenedor */
+    }
+
     @media screen and (max-width: 450px) {
         body {
-            background-color: #f8f8f8;
+            background-color: #fafafa;
         }
 
         #bubble-container {
@@ -78,8 +263,8 @@
             height: 80vh;
             max-width: 370px;
             max-height: 650px;
-            background: #d27f7f;
-            border: 1px solid #c66363;
+            background: #d5d3c7;
+            border: 1px solid #908a6d;
             border-radius: 15px;
         }
 
@@ -91,50 +276,112 @@
   </style>
 </head>
 <body>
-  
-  <div>
+
+  <div id="paginaPrincipal" class="paginaPrincipal">
+    <!-- Reloj -->
+    <div class="clock">
+      <span id="hours">00</span>:
+      <span id="minutes">00</span>:
+      <span id="seconds">00</span>
+    </div>
+    <h1 class="texto1">No somos solo amigos, somos familia</h1>
+    <p class="texto1">..Mientras respiremos, nunca nos rendiremos..</p>
     <button id="start-button">Reproducir Música</button>
   </div>
-  
-  <audio id="audio" src="audio/Counting Stars - OneRepublic (violin_cello_bass cover) Simply Three _ Shaorin Music(MP3_320K).mp3" loop></audio>
 
-  <div id="main-content">
+  <audio id="audio" src="audio/countingStars.mp3" loop></audio>
+  <audio id="audio1" src="audio/ariel.mp3" loop></audio>
+  <audio id="audio2" src="audio/micaela.mp3" loop></audio>
+  <audio id="audio3" src="audio/jenifer.mp3" loop></audio>
+
+  <div id="main-content" style="display: none;">
+    <div class="texto">
+      <h2 class="texto1">No compartimos sangre,</h2>
+      <h3 class="texto1">pero sí el mismo corazón</h3>
+    </div>
     <div id="bubble-container">
         <div class="bubble red" data-page="page1">
-            <img src="Imagenes/ariel3.png" alt="Imagen 1">
+            <img src="Imagenes/ariel3.png" alt="Ariel">
         </div>
         <div class="bubble blue" data-page="page2">
-            <img src="Imagenes/Micaela5.jpg" alt="Imagen 2">
+            <img src="Imagenes/Micaela5.jpg" alt="Micaela">
         </div>
         <div class="bubble green" data-page="page3">
-            <img src="Imagenes/Jennifer2.jpg" alt="Imagen 3">
+            <img src="Imagenes/Jennifer2.jpg" alt="Jennifer">
         </div>
     </div>
   </div>
 
+  <div id="page1" class="page-content" style="display: none;">
+      <h1 class="texto2">Ariel Montecinos Estrada</h1>
+      <div>
+        <img id="imagenAriel" src="Imagenes/ariel3.png" alt="Imagen principal">
+      </div>
+      <button onclick="showMain()" class="botonVolver">Volver</button>
+      <button onclick="reloadPage()" class="botonPrincipal">Principa</button>
+  </div>
+
+  <div id="page2" class="page-content" style="display: none;">
+      <h1 class="texto2">Micaela Andrea Chavez Rojas</h1>
+      <div>
+        <img id="imagenMicaela" src="Imagenes/Micaela5.jpg" alt="Imagen principal">
+      </div>
+      <button onclick="showMain()" class="botonVolver">Volver</button>
+      <button onclick="reloadPage()" class="botonPrincipal">Principa</button>
+  </div>
+
+  <div id="page3" class="page-content" style="display: none;">
+      <h1 class="texto2">Jennifer Rojas Quispe</h1>
+      <div>
+        <img id="imagenJenifer" src="Imagenes/Jennifer2.jpg" alt="Imagen principal">
+      </div>
+      
+      <button onclick="showMain()" class="botonVolver">Volver</button>
+      <button onclick="reloadPage()" class="botonPrincipal">Principa</button>
+  </div>    
+      
+      
+
 <script>
-  const audio = document.getElementById("audio");
+  const mainAudio = document.getElementById("audio");
   const playBtn = document.getElementById("start-button");
   const mainContent = document.getElementById("main-content");
   const bubbleContainer = document.getElementById("bubble-container");
   const bubbles = document.querySelectorAll(".bubble");
   let currentTopBubbleIndex = 0;
+  //implementaremos el cambio de las imagenes automaticas 
+  var imagenesAriel = ["Imagenes/ariel3.png", "Imagenes/ariel3.png", "Imagenes/ariel2.gif","Imagenes/ariel3.gif","Imagenes/ariel4.gif","Imagenes/ariel5.gif","Imagenes/ariel7.gif"];
+    var indice = 0;
+
+    function cambiarImagen() {
+      indice++;
+      if (indice >= imagenesAriel.length) {
+        indice = 0;
+      }
+      document.getElementById('imagenAriel').src = imagenesAriel[indice];
+  }
+
+  setInterval(cambiarImagen, 5000);
+
+  //Aquí termina todo. 
 
   playBtn.addEventListener("click", () => {
-      audio.play();
-      playBtn.style.display = "none";
-      mainContent.style.display = "block";
-      iniciarBurbujas();
-      iniciarSuperposiciónBurbujas();
-  });
+    mainAudio.play();
+    playBtn.style.display = "none";
+    mainContent.style.display = "block";
+    document.getElementById("paginaPrincipal").style.display = "none"; // Oculta el div principal
+    iniciarBurbujas();
+    iniciarSuperposiciónBurbujas();
+});
+
 
   function iniciarBurbujas() {
       let containerWidth = bubbleContainer.clientWidth;
       let containerHeight = bubbleContainer.clientHeight;
 
       bubbles.forEach((bubble) => {
-          let vx = (Math.random() * 2 - 1) * 2;
-          let vy = (Math.random() * 2 - 1) * 2;
+          let vx = (Math.random() * 3 - 1.5) * 2;
+          let vy = (Math.random() * 3 - 1.5) * 2;
           let size = bubble.clientWidth;
           let x = Math.random() * (containerWidth - size);
           let y = Math.random() * (containerHeight - size);
@@ -153,21 +400,107 @@
 
           moverBurbuja();
       });
-
-      window.addEventListener("resize", () => {
-          containerWidth = bubbleContainer.clientWidth;
-          containerHeight = bubbleContainer.clientHeight;
-      });
   }
 
   function iniciarSuperposiciónBurbujas() {
       setInterval(() => {
           bubbles.forEach((bubble, index) => {
-              bubble.style.zIndex = (index === currentTopBubbleIndex) ? '10' : '1';
+              bubble.style.zIndex = index === currentTopBubbleIndex ? '10' : '1';
+              bubble.style.opacity = index === currentTopBubbleIndex ? '1' : '0.7';
           });
           currentTopBubbleIndex = (currentTopBubbleIndex + 1) % bubbles.length;
-      }, 1000);
+      }, 2500);
   }
+
+  function detenerTodosLosAudios() {
+    document.querySelectorAll("audio").forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+  }
+
+
+  function mostrarPagina(paginaId) {
+      detenerTodosLosAudios();
+      document.querySelectorAll('.page-content').forEach(pagina => pagina.style.display = 'none');
+      document.getElementById(paginaId).style.display = 'block';
+      document.getElementById('bubble-container').style.display = 'none';
+
+      const audio = document.getElementById(`audio${paginaId.replace("page", "")}`);
+      if (audio) {
+          audio.play();
+      }
+  }
+
+  function showMain() {
+  // Restablece la imagen al inicial
+  document.getElementById('imagenAriel').src = "Imagenes/ariel3.png";
+  
+  // Ocultar todas las páginas y mostrar la vista principal
+  document.querySelectorAll('.page-content').forEach(pagina => pagina.style.display = 'none');
+  document.getElementById('bubble-container').style.display = 'block';
+  mainContent.style.display = 'block';
+  
+  // Detener todos los audios en reproducción (incluyendo audio1, audio2, audio3)
+  detenerTodosLosAudios();
+  
+  // Volver a reproducir el audio principal
+  mainAudio.play();
+  }
+
+  function reloadPage() {
+    location.reload(); // Recarga completamente la página
+}
+
+  bubbles.forEach(bubble => {
+      bubble.addEventListener("click", () => {
+          const pageId = bubble.getAttribute("data-page");
+          mostrarPagina(pageId);
+      });
+  });
+
+
+ // Generar globos aleatorios
+ function createBalloon() {
+            let balloon = document.createElement("div");
+            balloon.classList.add("balloon");
+            balloon.style.left = Math.random() * 100 + "vw";
+            balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            balloon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(balloon);
+            setTimeout(() => { balloon.remove(); }, 5000);
+        }
+        setInterval(createBalloon, 800);
+
+        // Generar chispas aleatorias
+        function createSpark() {
+            let spark = document.createElement("div");
+            spark.classList.add("spark");
+            spark.style.left = Math.random() * 100 + "vw";
+            spark.style.top = Math.random() * 100 + "vh";
+            spark.style.animationDuration = (Math.random() * 1.5 + 0.5) + "s";
+            document.body.appendChild(spark);
+            setTimeout(() => { spark.remove(); }, 1500);
+        }
+        setInterval(createSpark, 300);
+
+// Esta es la función del Reloj. 
+  function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+    document.getElementById('seconds').textContent = seconds;
+  }
+
+  // Llamar a la función inmediatamente y luego cada segundo
+  updateClock();
+  setInterval(updateClock, 1000);
+
 </script>
+
 </body>
 </html>
