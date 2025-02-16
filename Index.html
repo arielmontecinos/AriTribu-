@@ -5,275 +5,321 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Burbujas Interactivas</title>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-
-.clock {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #0ff;
-  background: rgba(0, 0, 0, 0.9);
-  padding: 20px 40px;
-  border-radius: 12px;
-  display: inline-block;
-  text-align: center;
-  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #00f;
-  border: 3px solid rgba(255, 255, 255, 0.8); /* Toque blanco en el borde */
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
-  position: relative;
-}
-
-/* Efecto de reflejo en el borde */
-.clock::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border-radius: 15px;
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.6), rgba(0, 255, 255, 0.5));
-  z-index: -1;
-  filter: blur(8px);
-  opacity: 0.8;
-  animation: neonBorder 3s linear infinite alternate;
-}
-
-/* Animación del borde de neón */
-@keyframes neonBorder {
-  0% { filter: blur(8px) brightness(1); }
-  50% { filter: blur(12px) brightness(1); }
-  100% { filter: blur(8px) brightness(1); }
-}
-
-.clock span {
-  display: inline-block;
-  min-width: 60px;
-  text-align: center;
-  color: #fff; /* Toque blanco en los números */
-  text-shadow: 0 0 8px #fff, 0 0 12px #0ff;
-}
-
-
+    /* Importamos la fuente 'Orbitron' de Google Fonts para el efecto digital */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
     
-    /****************************/
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: linear-gradient(135deg, #232526, #414345);
-    color: white;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-}
-h1{
-  font-size: 2em;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-p {
-  font-size: 1.2em;
-  font-style: italic;
-}
-#paginaPrincipal {
- margin-top: 20px;
-}
-
-#start-button {
-  padding: 12px 24px;
-  font-size: 1.2em;
-  border: none;
-  background: #ffcc00;
-  color: black;
-  font-weight: bold;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.7);
-}
-#start-button:hover {
-  background: #ff9900;
-  box-shadow: 0px 0px 20px rgba(255, 153, 0, 1);
-}
-/*Arreglando los botones de pagina1 y pagina2, pagina3*/
-@keyframes latido {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.botonVolver,.botonPrincipal{
-  padding: 12px 22px;
-  font-size: 1.1em;
-  border: none;
-  background: linear-gradient(45deg, #ffcc00, #ff9900);
-  color: black;
-  font-weight: bold;
-  border-radius: 23px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out, transform 0.2s;
-  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.7);
-  animation: latido 1.5s infinite ease-in-out;
-}
-button{
-  margin:10px;
-}
-/*Mejorando la interfas del texto. */
-@keyframes colorLatido {
-  0% { color: #eedfa4; }
-  50% { color: rgb(248, 245, 245); }
-  100% { color: rgb(55, 207, 230); }
-}
-
-.texto1 {
-  font-size: 1.5em;
-  font-weight: bold;
-  animation: colorLatido 5s infinite ease-in-out;
-}
-@keyframes fuenteLatido {
-  0% { color: rgb(255, 255, 255); font-family: "Montserrat", sans-serif; }
-  50% { color: #b6ffe7; font-family: "Playfair Display", serif; }
-  75% { color: #edad93; font-family:Arial, Helvetica, sans-serif; }
-  100% { color: rgb(252, 205, 253); font-family: "Montserrat", sans-serif; }
-}
-
-.texto2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-top: 50px;
-  animation: fuenteLatido 10s infinite ease-in-out;
-  
-}
-
-
-/* Globos animados */
-.balloon {
-            position: absolute;
-            bottom: -100px;
-            width: 50px;
-            height: 60px;
-            background: red;
-            border-radius: 50%;
-            animation: floatUp 5s linear infinite;
-        }
-        .balloon::before {
-            content: "";
-            position: absolute;
-            width: 2px;
-            height: 50px;
-            background: white;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-120vh); opacity: 0; }
-        }
-
-        /* Chispas */
-        .spark {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: gold;
-            box-shadow: 0 0 10px gold;
-            border-radius: 50%;
-            animation: flicker 1s infinite alternate;
-        }
-        @keyframes flicker {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.5); }
-        }
-/**********************/
+    /* --------------------------------------------------------- */
+    /* Estilos del Reloj (clock) */
+    .clock {
+      font-family: 'Orbitron', sans-serif; /* Fuente con efecto digital */
+      font-size: 2.5rem;                  /* Tamaño de fuente grande */
+      font-weight: bold;                  /* Estilo de fuente negrita */
+      margin: 13px;                       /* Margen alrededor del reloj */
+      color: #0ff;                        /* Color cian para el texto */
+      background: rgba(0, 0, 0, 0.9);     /* Fondo semitransparente negro */
+      padding: 20px 40px;                 /* Espaciado interno */
+      border-radius: 12px;                /* Bordes redondeados */
+      display: inline-block;              /* Mostrar en línea pero como bloque */
+      text-align: center;                 /* Centrar el contenido */
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #00f; /* Efecto neón */
+      border: 3px solid rgba(255, 255, 255, 0.8); /* Borde blanco translúcido */
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5),
+                  0 0 30px rgba(0, 255, 255, 0.3);            /* Sombras brillantes */
+      position: relative;                 /* Para el efecto del ::before */
+    }
+    
+    /* Efecto de reflejo en el borde del reloj */
+    .clock::before {
+      content: ""; /* Elemento vacío para crear el reflejo */
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 15px;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.6), rgba(0, 255, 255, 0.5));
+      z-index: -1;         /* Poner detrás del contenido principal */
+      filter: blur(8px);   /* Difuminado para el reflejo */
+      opacity: 0.8;        /* Transparencia */
+      animation: neonBorder 3s linear infinite alternate; /* Animación de borde */
+    }
+    
+    /* Animación del borde de neón que pulsa en brillo */
+    @keyframes neonBorder {
+      0%   { filter: blur(8px) brightness(1); }
+      50%  { filter: blur(12px) brightness(1); }
+      100% { filter: blur(8px) brightness(1); }
+    }
+    
+    /* Estilos internos para cada dígito del reloj */
+    .clock span {
+      display: inline-block;
+      min-width: 60px;       /* Ancho mínimo para cada número */
+      text-align: center;
+      color: #fff;           /* Color blanco para los números */
+      text-shadow: 0 0 8px #fff, 0 0 12px #0ff; /* Efecto brillante adicional */
+    }
+    
+    /* --------------------------------------------------------- */
+    /* Estilos globales para el cuerpo de la página */
+    body {
+        margin: 0;                                        /* Eliminar márgenes por defecto */
+        font-family: Arial, sans-serif;                   /* Fuente global */
+        text-align: center;                               /* Centrar texto en body */
+        background: linear-gradient(135deg, #232526, #08294a); /* Degradado de fondo */
+        color: white;                                     /* Color del texto en blanco */
+        height: 100vh;                                    /* Altura completa de la ventana */
+        display: flex;                                    /* Usamos flexbox */
+        flex-direction: column;                           /* Alineación vertical */
+        justify-content: center;                          /* Centrar verticalmente */
+        align-items: center;                              /* Centrar horizontalmente */
+        overflow: hidden;                                 /* Ocultar scroll si lo hay */
+        position: relative;                               /* Contenedor relativo para elementos */
+    }
+    
+    /* Estilo para encabezados (Título) */
+    h1 {
+      font-size: 2em;            /* Tamaño de fuente más grande */
+      margin-bottom: 10px;       /* Espacio debajo del título */
+      text-transform: uppercase; /* Texto en mayúsculas */
+    }
+    
+    /* Estilo para párrafos */
+    p {
+      font-size: 1.2em;  /* Tamaño de fuente mediano */
+      font-style: italic; /* Estilo cursivo */
+    }
+    
+    /* Contenedor principal */
+    #paginaPrincipal {
+     margin-top: 20px;   /* Separación superior */
+    }
+    
+    /* Botón de inicio (#start-button) */
+    #start-button {
+      padding: 12px 24px;                           /* Tamaño del botón */
+      font-size: 1.2em;                             /* Tamaño de fuente */
+      border: none;                                 /* Sin borde */
+      background: #ffcc00;                          /* Color de fondo */
+      color: black;                                 /* Color de texto */
+      font-weight: bold;                            /* Texto en negrita */
+      border-radius: 25px;                          /* Bordes redondeados */
+      cursor: pointer;                              /* Manito en hover */
+      transition: 0.3s;                             /* Transición suave */
+      box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.7);
+    }
+    
+    #start-button:hover {
+      background: #ff9900;                          /* Cambiar color en hover */
+      box-shadow: 0px 0px 20px rgba(255, 153, 0, 1); /* Sombra más intensa */
+    }
+    
+    /* Animación de latido para los botones */
+    @keyframes latido {
+      0%   { transform: scale(1);   }
+      50%  { transform: scale(1.1); }
+      100% { transform: scale(1);   }
+    }
+    
+    /* Botones de volver e inicio (comparten estilo) */
+    .botonVolver, .botonPrincipal {
+      padding: 12px 22px;
+      font-size: 1.1em;
+      border: none;
+      background: linear-gradient(45deg, #ffcc00, #ff9900); /* Degradado naranja */
+      color: black;
+      font-weight: bold;
+      border-radius: 23px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out, transform 0.2s;
+      box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.7);
+      animation: latido 1.5s infinite ease-in-out; /* Aplica la animación latido */
+    }
+    
+    /* Margen para todos los botones */
+    button {
+      margin: 10px;
+    }
+    
+    /* Animación para cambio de color en textos */
+    @keyframes colorLatido {
+      0%   { color: #eedfa4; }
+      50%  { color: rgb(248, 245, 245); }
+      100% { color: rgb(55, 207, 230); }
+    }
+    
+    /* Texto con animación de colorLatido */
+    .texto1 {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin: 0px;
+      animation: colorLatido 5s infinite ease-in-out;
+    }
+    
+    /* Animación para cambiar fuente y color gradualmente */
+    @keyframes fuenteLatido {
+      0%   { color: rgb(255, 255, 255); font-family: "Montserrat", sans-serif; }
+      50%  { color: #b6ffe7;            font-family: "Playfair Display", serif; }
+      75%  { color: #edad93;            font-family: "Montserrat", sans-serif; }
+      100% { color: rgb(252, 205, 253); font-family: "Montserrat", sans-serif; }
+    }
+    
+    .texto2 {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 50px;
+      animation: fuenteLatido 10s infinite ease-in-out; /* Aplica la animación definida */
+    }
+    
+    /* --------------------------------------------------------- */
+    /* Globos animados */
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 50px;
+      height: 60px;
+      background: red;        /* Color base del globo */
+      border-radius: 50%;     /* Forma circular */
+      animation: floatUp 5s linear infinite; /* Efecto de flotación ascendente */
+    }
+    
+    /* Parte inferior del globo (cuerda) */
+    .balloon::before {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 50px;
+      background: white;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    /* Animación de subida de los globos */
+    @keyframes floatUp {
+      0%   { transform: translateY(0);        opacity: 1; }
+      100% { transform: translateY(-120vh);  opacity: 0; }
+    }
+    
+    /* --------------------------------------------------------- */
+    /* Chispas doradas */
+    .spark {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: gold;               /* Color dorado */
+      box-shadow: 0 0 10px gold;      /* Resplandor dorado */
+      border-radius: 50%;             /* Forma circular */
+      animation: flicker 1s infinite alternate; /* Parpadeo dorado */
+    }
+    
+    @keyframes flicker {
+      0%   { opacity: 0.3; transform: scale(1);   }
+      100% { opacity: 1;   transform: scale(1.5); }
+    }
+    
+    /* --------------------------------------------------------- */
+    /* Ocultamos inicialmente el contenido principal */
     #main-content {
-        display: none;
+      display: none;
     }
-
+    
+    /* Contenedor de burbujas interactivas */
     #bubble-container {
-        width: 600px;
-        height: 750px;
-        position: relative;
-        background: #f0f0f0;
-        border: 1px solid #ccc;
-        overflow: hidden;
-        border-radius: 10px;
+      width: 750px;
+      height: 550px;
+      position: relative;
+      background: #f0f0f0;        /* Fondo claro */
+      border: 1px solid #ccc;     /* Borde gris claro */
+      overflow: hidden;           /* Ocultar desbordamiento */
+      border-radius: 10px;        /* Bordes redondeados */
     }
-
+    
+    /* Burbujas con contenido dentro (imágenes, etc.) */
     .bubble {
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .bubble img {
-        width: 85%;
-        height: auto;
-        border-radius: 100%;
-    }
-
-    .bubble.red { background: rgba(255, 99, 71, 0.8); }
-    .bubble.blue { background: rgba(70, 130, 180, 0.8); }
-    .bubble.green { background: rgba(34, 139, 34, 0.8); }
-
-    .page-content {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        background: #183049;
-    }
-    /*para centrar las paginas. */
-    #imagenAriel,#imagenMicaela,#imagenJenifer {
-      width: 90%;
-      height: auto;
-      margin: 20px;
-    }
-    #page1 , #page2, #page3 {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;         /* Forma circular */
       display: flex;
-      flex-direction: column; /* Para alinear los elementos uno debajo del otro */
-      justify-content: center; /* Centrado vertical */
-      align-items: center; /* Centrado horizontal */
-      height: 100vh; /* La altura total de la ventana */
-      text-align: center; /* Opcional: centra el texto dentro del contenedor */
+      justify-content: center;    /* Centrar contenido horizontalmente */
+      align-items: center;        /* Centrar contenido verticalmente */
+      cursor: pointer;            /* Cursor de mano al pasar por encima */
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombras sutiles */
     }
-
+    
+    /* Ajuste de imagen dentro de la burbuja */
+    .bubble img {
+      width: 85%;  /* Ajusta tamaño al contenedor */
+      height: auto;
+      border-radius: 100%; /* Mantener circular la imagen */
+    }
+    
+    /* Burbujas con colores diferentes */
+    .bubble.red   { background: rgba(255, 99, 71, 0.8);   }
+    .bubble.blue  { background: rgba(70, 130, 180, 0.8);  }
+    .bubble.green { background: rgba(34, 139, 34, 0.8);   }
+    
+    /* Páginas de contenido individuales (ocultas por defecto) */
+    .page-content {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      background: #183049; /* Fondo oscuro */
+    }
+    
+    /* Imágenes de Ariel, Micaela y Jenifer */
+    #imagenAriel, #imagenMicaela, #imagenJenifer {
+      width: 30%;   /* Tamaño de la imagen */
+      height: auto;
+      margin: 20px; /* Separación */
+    }
+    
+    /* Páginas específicas (page1, page2, page3) centradas */
+    #page1, #page2, #page3 {
+      display: flex;
+      flex-direction: column;  /* Colocar contenido uno debajo del otro */
+      justify-content: center; /* Centrar verticalmente */
+      align-items: center;     /* Centrar horizontalmente */
+      height: 100vh;           /* Tomar toda la altura de la pantalla */
+      text-align: center;      /* Centrar texto */
+    }
+    
+    /* --------------------------------------------------------- */
+    /* Ajustes responsivos para pantallas pequeñas */
     @media screen and (max-width: 450px) {
-        body {
-            background-color: #fafafa;
-        }
-
-        #bubble-container {
-            width: 90vw;
-            height: 80vh;
-            max-width: 370px;
-            max-height: 650px;
-            background: #d5d3c7;
-            border: 1px solid #908a6d;
-            border-radius: 15px;
-        }
-
-        .bubble {
-            width: 230px;
-            height: 230px;
-        }
+      body {
+        background-color: #fafafa; /* Fondo más claro en móviles */
+      }
+    
+      #bubble-container {
+        width: 90vw;              /* Ajustar ancho al 90% de la ventana */
+        height: 80vh;             /* Ajustar altura al 80% de la ventana */
+        margin:10px;
+        max-width: 375px;         /* Tamaño máximo en px */
+        max-height: 650px;        /* Alto máximo en px */
+        background: #d5d3c7;      /* Fondo beige suave */
+        border: 1px solid #908a6d;
+        border-radius: 15px;
+      }
+    
+      .bubble {
+        width: 230px;
+        height: 230px;
+      }
+    
+      #imagenAriel, #imagenMicaela, #imagenJenifer {
+        width: 85%;    /* Ajustar a un tamaño más grande en móvil */
+        height: auto;
+        margin: 20px;
+      }
     }
-  </style>
+</style>
 </head>
 <body>
 
@@ -290,14 +336,13 @@ button{
   </div>
 
   <audio id="audio" src="audio/countingStars.mp3" loop></audio>
-  <audio id="audio1" src="audio/ariel.mp3" loop></audio>
-  <audio id="audio2" src="audio/micaela.mp3" loop></audio>
+  <audio id="audio1" src="audio/audioAriel2.mp3" loop></audio>
+  <audio id="audio2" src="audio/audioMicaela.mp3" loop></audio>
   <audio id="audio3" src="audio/jenifer.mp3" loop></audio>
 
   <div id="main-content" style="display: none;">
     <div class="texto">
-      <h2 class="texto1">No compartimos sangre,</h2>
-      <h3 class="texto1">pero sí el mismo corazón</h3>
+      <h2 class="texto1">No compartimos sangre, pero sí el mismo corazón</h2>
     </div>
     <div id="bubble-container">
         <div class="bubble red" data-page="page1">
@@ -318,7 +363,7 @@ button{
         <img id="imagenAriel" src="Imagenes/ariel3.png" alt="Imagen principal">
       </div>
       <button onclick="showMain()" class="botonVolver">Volver</button>
-      <button onclick="reloadPage()" class="botonPrincipal">Principa</button>
+      <button onclick="reloadPage()" class="botonPrincipal">Inicio</button>
   </div>
 
   <div id="page2" class="page-content" style="display: none;">
@@ -327,7 +372,7 @@ button{
         <img id="imagenMicaela" src="Imagenes/Micaela5.jpg" alt="Imagen principal">
       </div>
       <button onclick="showMain()" class="botonVolver">Volver</button>
-      <button onclick="reloadPage()" class="botonPrincipal">Principa</button>
+      <button onclick="reloadPage()" class="botonPrincipal">Inicio</button>
   </div>
 
   <div id="page3" class="page-content" style="display: none;">
@@ -337,34 +382,66 @@ button{
       </div>
       
       <button onclick="showMain()" class="botonVolver">Volver</button>
-      <button onclick="reloadPage()" class="botonPrincipal">Principa</button>
+      <button onclick="reloadPage()" class="botonPrincipal">Inicio</button>
   </div>    
-      
-      
+<!-- Agregamos comentarios sobre la posible lentitud sin modificar la funcionalidad -->
+<!-- 
+  Sugerencias de rendimiento (NO implementadas para no cambiar la funcionalidad):
+   1. Aumentar el intervalo de creación de globos y chispas (por ejemplo, cada 2s y 700ms).
+   2. Limitar la cantidad máxima de globos/chispas simultáneos.
+   3. Unificar la lógica de animaciones en una sola llamada a requestAnimationFrame.
+   4. Optimizar tamaños de imágenes y uso de GIFs pesados.
+   5. Usar document.visibilityState para pausar animaciones al cambiar de pestaña.
+   6. Evitar reloadPage() si no es esencial, para reducir recargas completas.
+-->
 
 <script>
+  /*
+    Este script controla:
+      - La reproducción de música principal y de las páginas individuales.
+      - El efecto de burbujas flotantes y su superposición cíclica.
+      - Las animaciones de globos y chispas que aparecen aleatoriamente.
+      - El cambio automático de la imagen de Ariel.
+      - El reloj digital que se actualiza cada segundo.
+
+    Nota de rendimiento:
+      - Debido a la cantidad de animaciones y la creación constante de elementos (globos y chispas),
+        es posible que haya una ligera lentitud, especialmente en dispositivos con menos recursos.
+      - En caso de querer optimizarlo, podrías aplicar las sugerencias listadas en el comentario de arriba.
+      - Pero en este código NO se altera la lógica ni la funcionalidad original.
+  */
+
   const mainAudio = document.getElementById("audio");
   const playBtn = document.getElementById("start-button");
   const mainContent = document.getElementById("main-content");
   const bubbleContainer = document.getElementById("bubble-container");
   const bubbles = document.querySelectorAll(".bubble");
   let currentTopBubbleIndex = 0;
-  //implementaremos el cambio de las imagenes automaticas 
-  var imagenesAriel = ["Imagenes/ariel3.png", "Imagenes/ariel3.png", "Imagenes/ariel2.gif","Imagenes/ariel3.gif","Imagenes/ariel4.gif","Imagenes/ariel5.gif","Imagenes/ariel7.gif"];
-    var indice = 0;
 
-    function cambiarImagen() {
-      indice++;
-      if (indice >= imagenesAriel.length) {
-        indice = 0;
-      }
-      document.getElementById('imagenAriel').src = imagenesAriel[indice];
+  // Array de imágenes para Ariel (cambio automático)
+  var imagenesAriel = [
+    "Imagenes/ariel3.png",
+    "Imagenes/ariel3.png",
+    "Imagenes/ariel2.gif",
+    "Imagenes/ariel3.gif",
+    "Imagenes/ariel4.gif",
+    "Imagenes/ariel5.gif",
+    "Imagenes/ariel7.gif"
+  ];
+  var indice = 0;
+
+  // Función para cambiar la imagen de Ariel cada 5s
+  function cambiarImagen() {
+    indice++;
+    if (indice >= imagenesAriel.length) {
+      indice = 0;
+    }
+    document.getElementById("imagenAriel").src = imagenesAriel[indice];
   }
 
   setInterval(cambiarImagen, 5000);
 
-  //Aquí termina todo. 
-
+  // Evento para reproducir el audio principal y mostrar el mainContent
   playBtn.addEventListener("click", () => {
     mainAudio.play();
     playBtn.style.display = "none";
@@ -372,134 +449,145 @@ button{
     document.getElementById("paginaPrincipal").style.display = "none"; // Oculta el div principal
     iniciarBurbujas();
     iniciarSuperposiciónBurbujas();
-});
+  });
 
-
+  // Función que mueve las burbujas aleatoriamente dentro de su contenedor
   function iniciarBurbujas() {
-      let containerWidth = bubbleContainer.clientWidth;
-      let containerHeight = bubbleContainer.clientHeight;
+    let containerWidth = bubbleContainer.clientWidth;
+    let containerHeight = bubbleContainer.clientHeight;
 
-      bubbles.forEach((bubble) => {
-          let vx = (Math.random() * 3 - 1.5) * 2;
-          let vy = (Math.random() * 3 - 1.5) * 2;
-          let size = bubble.clientWidth;
-          let x = Math.random() * (containerWidth - size);
-          let y = Math.random() * (containerHeight - size);
+    bubbles.forEach((bubble) => {
+      let vx = (Math.random() * 3 - 1.5) * 2;
+      let vy = (Math.random() * 3 - 1.5) * 2;
+      let size = bubble.clientWidth;
+      let x = Math.random() * (containerWidth - size);
+      let y = Math.random() * (containerHeight - size);
 
-          function moverBurbuja() {
-              x += vx;
-              y += vy;
+      function moverBurbuja() {
+        x += vx;
+        y += vy;
 
-              if (x <= 0 || x >= containerWidth - size) vx *= -1;
-              if (y <= 0 || y >= containerHeight - size) vy *= -1;
+        if (x <= 0 || x >= containerWidth - size) vx *= -1;
+        if (y <= 0 || y >= containerHeight - size) vy *= -1;
 
-              bubble.style.transform = `translate(${x}px, ${y}px)`;
+        bubble.style.transform = `translate(${x}px, ${y}px)`;
 
-              requestAnimationFrame(moverBurbuja);
-          }
+        requestAnimationFrame(moverBurbuja);
+      }
 
-          moverBurbuja();
-      });
-  }
-
-  function iniciarSuperposiciónBurbujas() {
-      setInterval(() => {
-          bubbles.forEach((bubble, index) => {
-              bubble.style.zIndex = index === currentTopBubbleIndex ? '10' : '1';
-              bubble.style.opacity = index === currentTopBubbleIndex ? '1' : '0.7';
-          });
-          currentTopBubbleIndex = (currentTopBubbleIndex + 1) % bubbles.length;
-      }, 2500);
-  }
-
-  function detenerTodosLosAudios() {
-    document.querySelectorAll("audio").forEach(audio => {
-        audio.pause();
-        audio.currentTime = 0;
+      moverBurbuja();
     });
   }
 
-
-  function mostrarPagina(paginaId) {
-      detenerTodosLosAudios();
-      document.querySelectorAll('.page-content').forEach(pagina => pagina.style.display = 'none');
-      document.getElementById(paginaId).style.display = 'block';
-      document.getElementById('bubble-container').style.display = 'none';
-
-      const audio = document.getElementById(`audio${paginaId.replace("page", "")}`);
-      if (audio) {
-          audio.play();
-      }
-  }
-
-  function showMain() {
-  // Restablece la imagen al inicial
-  document.getElementById('imagenAriel').src = "Imagenes/ariel3.png";
-  
-  // Ocultar todas las páginas y mostrar la vista principal
-  document.querySelectorAll('.page-content').forEach(pagina => pagina.style.display = 'none');
-  document.getElementById('bubble-container').style.display = 'block';
-  mainContent.style.display = 'block';
-  
-  // Detener todos los audios en reproducción (incluyendo audio1, audio2, audio3)
-  detenerTodosLosAudios();
-  
-  // Volver a reproducir el audio principal
-  mainAudio.play();
-  }
-
-  function reloadPage() {
-    location.reload(); // Recarga completamente la página
-}
-
-  bubbles.forEach(bubble => {
-      bubble.addEventListener("click", () => {
-          const pageId = bubble.getAttribute("data-page");
-          mostrarPagina(pageId);
+  // Función que alterna la burbuja en primer plano
+  function iniciarSuperposiciónBurbujas() {
+    setInterval(() => {
+      bubbles.forEach((bubble, index) => {
+        bubble.style.zIndex = index === currentTopBubbleIndex ? "10" : "1";
+        bubble.style.opacity = index === currentTopBubbleIndex ? "1" : "0.7";
       });
+      currentTopBubbleIndex = (currentTopBubbleIndex + 1) % bubbles.length;
+    }, 2500);
+  }
+
+  // Detener todos los audios existentes
+  function detenerTodosLosAudios() {
+    document.querySelectorAll("audio").forEach((audio) => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+  }
+
+  // Mostrar la página correspondiente y reproducir el audio asociado
+  function mostrarPagina(paginaId) {
+    detenerTodosLosAudios();
+    document
+      .querySelectorAll(".page-content")
+      .forEach((pagina) => (pagina.style.display = "none"));
+    document.getElementById(paginaId).style.display = "block";
+    document.getElementById("bubble-container").style.display = "none";
+
+    const audio = document.getElementById(`audio${paginaId.replace("page", "")}`);
+    if (audio) {
+      audio.play();
+    }
+  }
+
+  // Volver a la sección principal
+  function showMain() {
+    // Restablece la imagen al inicial
+    document.getElementById("imagenAriel").src = "Imagenes/ariel3.png";
+
+    // Oculta todas las páginas y muestra la vista principal
+    document
+      .querySelectorAll(".page-content")
+      .forEach((pagina) => (pagina.style.display = "none"));
+    document.getElementById("bubble-container").style.display = "block";
+    mainContent.style.display = "block";
+
+    // Detener todos los audios en reproducción (incluyendo audio1, audio2, audio3)
+    detenerTodosLosAudios();
+
+    // Volver a reproducir el audio principal
+    mainAudio.play();
+  }
+
+  // Recargar la página completamente
+  function reloadPage() {
+    location.reload();
+  }
+
+  // Agregar evento de click a cada burbuja para mostrar la página correspondiente
+  bubbles.forEach((bubble) => {
+    bubble.addEventListener("click", () => {
+      const pageId = bubble.getAttribute("data-page");
+      mostrarPagina(pageId);
+    });
   });
 
+  // Generar globos aleatorios
+  function createBalloon() {
+    let balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    balloon.style.animationDuration = Math.random() * 3 + 3 + "s";
+    document.body.appendChild(balloon);
+    setTimeout(() => {
+      balloon.remove();
+    }, 5000);
+  }
+  setInterval(createBalloon, 800);
 
- // Generar globos aleatorios
- function createBalloon() {
-            let balloon = document.createElement("div");
-            balloon.classList.add("balloon");
-            balloon.style.left = Math.random() * 100 + "vw";
-            balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            balloon.style.animationDuration = (Math.random() * 3 + 3) + "s";
-            document.body.appendChild(balloon);
-            setTimeout(() => { balloon.remove(); }, 5000);
-        }
-        setInterval(createBalloon, 800);
+  // Generar chispas aleatorias
+  function createSpark() {
+    let spark = document.createElement("div");
+    spark.classList.add("spark");
+    spark.style.left = Math.random() * 100 + "vw";
+    spark.style.top = Math.random() * 100 + "vh";
+    spark.style.animationDuration = Math.random() * 1.5 + 0.5 + "s";
+    document.body.appendChild(spark);
+    setTimeout(() => {
+      spark.remove();
+    }, 1500);
+  }
+  setInterval(createSpark, 300);
 
-        // Generar chispas aleatorias
-        function createSpark() {
-            let spark = document.createElement("div");
-            spark.classList.add("spark");
-            spark.style.left = Math.random() * 100 + "vw";
-            spark.style.top = Math.random() * 100 + "vh";
-            spark.style.animationDuration = (Math.random() * 1.5 + 0.5) + "s";
-            document.body.appendChild(spark);
-            setTimeout(() => { spark.remove(); }, 1500);
-        }
-        setInterval(createSpark, 300);
-
-// Esta es la función del Reloj. 
+  // Reloj digital
   function updateClock() {
     const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
 
-    document.getElementById('hours').textContent = hours;
-    document.getElementById('minutes').textContent = minutes;
-    document.getElementById('seconds').textContent = seconds;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
   }
 
-  // Llamar a la función inmediatamente y luego cada segundo
+  // Iniciar actualización del reloj
   updateClock();
   setInterval(updateClock, 1000);
-
 </script>
 
 </body>
