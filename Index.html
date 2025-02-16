@@ -12,7 +12,7 @@
     /* Estilos del Reloj (clock) */
     .clock {
       font-family: 'Orbitron', sans-serif; /* Fuente con efecto digital */
-      font-size: 2.5rem;                  /* Tamaño de fuente grande */
+      font-size: 2.3rem;                  /* Tamaño de fuente grande */
       font-weight: bold;                  /* Estilo de fuente negrita */
       margin: 13px;                       /* Margen alrededor del reloj */
       color: #0ff;                        /* Color cian para el texto */
@@ -275,7 +275,7 @@
     
     /* Imágenes de Ariel, Micaela y Jenifer */
     #imagenAriel, #imagenMicaela, #imagenJenifer {
-      width: 30%;   /* Tamaño de la imagen */
+      width: 26%;   /* Tamaño de la imagen */
       height: auto;
       margin: 20px; /* Separación */
     }
@@ -293,19 +293,27 @@
     /* --------------------------------------------------------- */
     /* Ajustes responsivos para pantallas pequeñas */
     @media screen and (max-width: 450px) {
-      body {
-        background-color: #fafafa; /* Fondo más claro en móviles */
-      }
-    
-      #bubble-container {
-        width: 90vw;              /* Ajustar ancho al 90% de la ventana */
-        height: 80vh;             /* Ajustar altura al 80% de la ventana */
-        margin:10px;
-        max-width: 375px;         /* Tamaño máximo en px */
-        max-height: 650px;        /* Alto máximo en px */
-        background: #d5d3c7;      /* Fondo beige suave */
-        border: 1px solid #908a6d;
-        border-radius: 15px;
+      html, body {
+      margin: 10px;
+      background-color:#08294a;
+      padding: 0;
+      height: 100%;
+      position: relative; /* Aseguramos que el body sea referencia */
+    }
+
+    #bubble-container {
+      width: 100vw;
+      height: 80vh;
+      max-width: 375px;
+      max-height: 600px;
+      background: #d5d3c7;
+      border: 1px solid #908a6d;
+      border-radius: 15px;
+
+      position:relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       }
     
       .bubble {
@@ -318,7 +326,9 @@
         height: auto;
         margin: 20px;
       }
-    }
+      /* Animación para cambio de color en textos */
+    
+  }
 </style>
 </head>
 <body>
